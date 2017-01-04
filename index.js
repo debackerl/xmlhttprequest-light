@@ -136,7 +136,7 @@ XMLHttpRequest.prototype.overrideMimeType = function(mimetype) {
 
 XMLHttpRequest.prototype.send = function(data) {
 	if(this.readyState !== this.OPENED) throw new TypeError();
-	let t = new Date();
+	
 	if(data) {
 		this._headers['Content-Length'] = data.length;
 		if(!this._headers['Content-Type'])
@@ -215,7 +215,7 @@ XMLHttpRequest.prototype.send = function(data) {
 				
 				if(this.onload) this.onload(getProgressEvent.call(this, 'load'));
 				if(this.onloadend) this.onloadend(getProgressEvent.call(this, 'loadend'));
-				console.log(new Date() - t);
+				
 				this._req = null;
 			}
 		});
