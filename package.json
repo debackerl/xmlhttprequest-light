@@ -1,7 +1,7 @@
 {
 	"name": "xmlhttprequest-light",
 	"title": "XMLHttpRequest implementation for Node.js",
-	"version": "0.5.2",
+	"version": "0.5.3",
 	"main": "index",
 	"author": "Laurent Debacker <debackerl gmail com>",
 	"license": "MIT",

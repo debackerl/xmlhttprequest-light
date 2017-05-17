@@ -1,10 +1,12 @@
 'use strict';
 
 const http = require('http');
+const https = require('https');
 const urlParse = require('url').parse;
 const util = require('util');
 
 const keepAliveAgent = new http.Agent({ keepAlive: true });
+const keepAliveAgentTLS = new https.Agent({ keepAlive: true });
 
 const methods = {
 	OPTIONS: 1,
@@ -146,12 +148,13 @@ XMLHttpRequest.prototype.send = function(data) {
 	}
 	
 	const url = this._url;
-	
+	const tls = url.protocol === 'https:';
+
 	let options = {
-		agent: keepAliveAgent,
+		agent: tls ? keepAliveAgentTLS : keepAliveAgent,
 		protocol: url.protocol,
 		hostname: url.hostname,
-		port: url.port || (url.protocol === 'https:' ? 443 : 80),
+		port: url.port || (tls ? 443 : 80),
 		method: this._method,
 		path: url.path,
 		headers: this._headers,
@@ -168,7 +171,7 @@ XMLHttpRequest.prototype.send = function(data) {
 			options.auth += ':' + this._password;
 	}
 	
-	this._req = http.request(options, (res) => {
+	this._req = (tls ? https : http).request(options, (res) => {
 		this.status = res.statusCode;
 		this.statusText = res.statusMessage;
 		
