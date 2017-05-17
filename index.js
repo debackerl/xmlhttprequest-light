@@ -114,6 +114,8 @@ XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
 	
 	if(async === false) throw new NotImplementedError();
 	
+	if(url.startsWith('//')) url = 'http:' + url;
+	
 	this._method = method;
 	this._url = urlParse(url);
 	this._user = user;
