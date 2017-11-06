@@ -161,8 +161,8 @@ XMLHttpRequest.prototype.send = function(data) {
 		timeout: this.timeout || 60
 	};
 	
-	if(url.query !== '')
-		options.url += '?' + url.query;
+	if(url.query !== '' && url.query !== null)
+		options.path += '?' + url.query;
 	
 	if(this._user) {
 		options.auth = this._user;
